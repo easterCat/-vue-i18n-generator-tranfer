@@ -6,6 +6,7 @@ const program = require("commander");
 const config = require("../config");
 const fs = require("fs-extra");
 const nodePath = require("path");
+const beforeGenerate = require("../beforeGenerate");
 
 try {
   program.version(packageInfo.version, "-v, --version");
@@ -16,12 +17,12 @@ try {
       "-p, --path <path>",
       "设置生成文件的路径，默认为运行目录（请设置已经存在的目录！！！）"
     )
-    .action((src = "src", { path }) => {
-      require("../beforeGenerate")();
+    .action(async (src = "src", { path }) => {
+      beforeGenerate();
       i18nGenerate(src);
-      setTimeout(() => {
-        require("../handle")();
-      });
+      const handle = require("../handle");
+      console.log(handle);
+      handle();
       // i18nRevert(path);
     });
 
