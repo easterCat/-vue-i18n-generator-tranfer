@@ -1,6 +1,6 @@
 {
-  "name": "vue-i18n-tranfer",
-  "version": "1.0.0",
+  "name": "vue-i18n-generator-tranfer",
+  "version": "1.0.6",
   "description": "",
   "main": "index.js",
   "directories": {

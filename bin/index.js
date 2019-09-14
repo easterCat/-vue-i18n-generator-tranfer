@@ -1,24 +1,37 @@
+#!/usr/bin/env node
+
 const { execSync } = require("child_process");
-const commander = require("commander");
+const packageInfo = require("../package.json");
+const program = require("commander");
 const config = require("../config");
 const fs = require("fs-extra");
-const path = require("path");
+const nodePath = require("path");
 
-commander
-  .command("generate [src]")
-  .description("对国际化生成文件进行翻译繁体")
-  .option(
-    "-p, --path <path>",
-    "设置生成文件的路径，默认为运行目录（请设置已经存在的目录！！！）"
-  )
-  .action((src = "src", { path }) => {
-    require("../beforeGenerate")();
-    i18nGenerate(path);
-    require("../handle")();
-    // i18nRevert(path);
-  });
+try {
+  program.version(packageInfo.version, "-v, --version");
+  program
+    .command("generate [src]")
+    .description("对src文件国际化后的生成文件进行繁体翻译和英文翻译")
+    .option(
+      "-p, --path <path>",
+      "设置生成文件的路径，默认为运行目录（请设置已经存在的目录！！！）"
+    )
+    .action((src = "src", { path }) => {
+      require("../beforeGenerate")();
+      i18nGenerate(src);
+      setTimeout(() => {
+        require("../handle")();
+      });
+      // i18nRevert(path);
+    });
+
+  program.parse(process.argv);
+} catch (error) {
+  throw error;
+}
 
 function i18nGenerate(path) {
+  console.log("需要抽离中文的文件夹=====>", path);
   let command = `i18n generate ${path ? path : config.scanPath}`;
 
   // if (config.key !== "") {
@@ -32,8 +45,8 @@ function i18nGenerate(path) {
   execSync(command);
 
   fs.copySync(
-    path.join(process.cwd(), "./tranfer/cache/zh_cn.js"),
-    path.join(config.projectPath, "./zh_cn.js")
+    nodePath.join(process.cwd(), "./tranfer/cache/zh_cn.js"),
+    nodePath.join(config.projectPath, "./zh_cn.js")
   );
 }
 

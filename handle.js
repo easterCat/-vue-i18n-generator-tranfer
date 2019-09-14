@@ -11,6 +11,8 @@ const url =
   "https://translate.google.cn/#view=home&op=translate&sl=zh-CN&tl=en";
 
 function handle() {
+  console.log(data);
+
   Promise.all([tranferEN(data), tranferZH(data), tranferTW(data)])
     .then(function() {
       console.log("生成资源文件完成！");
