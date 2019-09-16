@@ -4,8 +4,8 @@ const fs = require("fs-extra");
 
 function beforeGenerate() {
   console.log("获取的路径是===>", path.join(process.cwd(), config.tranferPath));
-  fs.mkdirsSync(path.join(process.cwd(), config.tranferPath));
-  fs.mkdirsSync(path.join(process.cwd(), config.cachePath));
+  fs.ensureDirSync(path.join(process.cwd(), config.tranferPath));
+  fs.ensureDirSync(path.join(process.cwd(), config.cachePath));
   fs.removeSync(path.join(process.cwd(), "./tranfer/cache/zh_cn.js")); // 删除之前的generate文件zh_cn
   fs.removeSync(path.join(config.projectPath, "./zh_cn.js")); // 删除之前的generate文件zh_cn
 }

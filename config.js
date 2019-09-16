@@ -10,7 +10,7 @@ const generateFilePath = path.join(__dirname, cachePath, "./zh_cn.js");
 
 module.exports = {
   status: "test", // test or default
-  key: "SSSS",
+  key: "default",
   projectPath,
   scanPath,
   cachePath,
