@@ -20,7 +20,17 @@ try {
       beforeGenerate();
       i18nGenerate(src);
       require("../tranfer")();
-      // i18nRevert(path);
+    });
+
+  program
+    .command("revert [src]")
+    .description("对src文件国际化后的生成文件进行复原")
+    .option(
+      "-p, --path <path>",
+      "设置生成文件的路径，默认为运行目录（请设置已经存在的目录！！！）"
+    )
+    .action(async (src = "src", { path }) => {
+      i18nRevert(path);
     });
 
   program.parse(process.argv);
@@ -38,11 +48,9 @@ function i18nGenerate(path) {
 }
 
 function i18nRevert(path) {
-  if (config.status === "test") {
-    let command = `i18n revert ${path ? path : config.scanPath}`;
-    if (config.cachePath) {
-      command = command + ` --path ${config.cachePath}`;
-    }
-    execSync(command);
+  let command = `i18n revert ${path ? path : config.scanPath}`;
+  if (config.cachePath) {
+    command = command + ` --path ${config.cachePath}`;
   }
+  execSync(command);
 }
