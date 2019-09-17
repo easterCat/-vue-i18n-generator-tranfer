@@ -12,16 +12,16 @@ const url =
 
 function handle() {
   try {
-    tranferZH(data);
-    tranferTW(data);
-    tranferEN(data);
+    translateZH(data);
+    translateTW(data);
+    translateEN(data);
   } catch (error) {
     console.log("生成资源文件出现错误", error);
   }
 }
 
 // 生成中文资源
-function tranferZH(obj) {
+function translateZH(obj) {
   var writeData = [];
   fs.ensureDirSync(config.zhLanguagePath);
   writeData.push(strHead);
@@ -29,12 +29,12 @@ function tranferZH(obj) {
     writeData.push(`"${key}":"${value}",`);
   }
   writeData.push(strEnd);
-  writeFileSync(config.zhLanguagePath + `zh_CN.js`, writeData.join("\n"));
+  writeFileSync(config.zhLanguagePath + `/zh_CN.js`, writeData.join("\n"));
   console.log("简体中文资源生成完毕");
 }
 
 // 生成繁体中文资源
-function tranferTW(obj) {
+function translateTW(obj) {
   fs.ensureDirSync(config.twLanguagePath);
   var writeData = [];
   writeData.push(strHead);
@@ -43,12 +43,12 @@ function tranferTW(obj) {
     writeData.push(`"${key}":"${opencc.simplifiedToTraditional(value)}",`);
   }
   writeData.push(strEnd);
-  writeFileSync(config.twLanguagePath + `zh_TW.js`, writeData.join("\n"));
+  writeFileSync(config.twLanguagePath + `/zh_TW.js`, writeData.join("\n"));
   console.log("繁体中文资源生成完毕");
 }
 
 // 生成英文资源
-async function tranferEN(obj) {
+async function translateEN(obj) {
   const browser = await puppeteer.launch({ headless: false });
   const page = await browser.newPage();
   var writeData = [];
@@ -71,7 +71,7 @@ async function tranferEN(obj) {
     await page.waitFor(500);
   }
   writeData.push(strEnd);
-  writeFileSync(config.enLanguagePath + `en.js`, writeData.join("\n"));
+  writeFileSync(config.enLanguagePath + `/en.js`, writeData.join("\n"));
   await page.waitFor(1000);
   browser.close();
   console.log("英文资源文件生成完毕");

@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-
 const { execSync } = require("child_process");
 const program = require("commander");
 const beforeGenerate = require("../beforeGenerate");
@@ -19,7 +18,7 @@ try {
     .action(async (src = "src", { path }) => {
       beforeGenerate();
       i18nGenerate(src);
-      require("../tranfer")();
+      require("../translate")();
     });
 
   program
