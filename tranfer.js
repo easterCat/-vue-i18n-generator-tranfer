@@ -29,11 +29,7 @@ function tranferZH(obj) {
     writeData.push(`"${key}":"${value}",`);
   }
   writeData.push(strEnd);
-  writeFileSync(
-    config.zhLanguagePath +
-      `/${config.key === "" ? "default" : config.key}_resource.js`,
-    writeData.join("\n")
-  );
+  writeFileSync(config.zhLanguagePath + `zh_CN.js`, writeData.join("\n"));
   console.log("简体中文资源生成完毕");
 }
 
@@ -47,11 +43,7 @@ function tranferTW(obj) {
     writeData.push(`"${key}":"${opencc.simplifiedToTraditional(value)}",`);
   }
   writeData.push(strEnd);
-  writeFileSync(
-    config.twLanguagePath +
-      `/${config.key === "" ? "default" : config.key}_resource.js`,
-    writeData.join("\n")
-  );
+  writeFileSync(config.twLanguagePath + `zh_TW.js`, writeData.join("\n"));
   console.log("繁体中文资源生成完毕");
 }
 
@@ -79,11 +71,7 @@ async function tranferEN(obj) {
     await page.waitFor(500);
   }
   writeData.push(strEnd);
-  writeFileSync(
-    config.enLanguagePath +
-      `/${config.key === "" ? "default" : config.key}_resource.js`,
-    writeData.join("\n")
-  );
+  writeFileSync(config.enLanguagePath + `en.js`, writeData.join("\n"));
   await page.waitFor(1000);
   browser.close();
   console.log("英文资源文件生成完毕");
