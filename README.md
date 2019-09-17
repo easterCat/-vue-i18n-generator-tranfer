@@ -9,3 +9,8 @@ after
 ```
 i18ntranslate generate [src]
 ```
+
+### other
+vue-i18n
+vue-i18n-generator
+vue-element-admin
