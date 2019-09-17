@@ -1,5 +1,5 @@
 {
-  "name": "vue-i18n-generator-tranfer",
+  "name": "vue-i18n-generator-translate",
   "version": "1.0.10",
   "description": "",
   "main": "index.js",
@@ -7,7 +7,7 @@
     "test": "test"
   },
   "bin": {
-    "i18ntranfer": "bin/index.js"
+    "i18ntranslate": "bin/index.js"
   },
   "scripts": {
     "test": "node ./bin/index.js"
